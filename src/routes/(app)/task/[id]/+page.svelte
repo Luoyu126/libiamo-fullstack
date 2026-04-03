@@ -14,7 +14,7 @@ function difficultyDots(level: number) {
 </script>
 
 <div class="mx-auto max-w-3xl space-y-6">
-	<a href="/" class="text-sm text-muted-foreground hover:underline">&larr; Back to Task Hall</a>
+	<a href="/" class="text-sm text-muted-foreground hover:underline">&larr; Back to Quest Hall</a>
 
 	<div>
 		<h1 class="text-3xl font-bold">{task.titleResolved}</h1>

@@ -26,7 +26,7 @@ const typeColors: Record<string, string> = {
 </script>
 
 <div class="space-y-10">
-	<!-- Weekly Tasks -->
+	<!-- Weekly Quests -->
 	<section>
 		<h2 class="mb-4 text-2xl font-semibold">{t(lang, 'hall.thisWeek')}</h2>
 		{#if data.weeklyTasks.length === 0}
@@ -69,7 +69,7 @@ const typeColors: Record<string, string> = {
 		{/if}
 	</section>
 
-	<!-- Daily Tasks -->
+	<!-- Daily Quests -->
 	<section>
 		<h2 class="mb-4 text-2xl font-semibold">{t(lang, 'hall.today')}</h2>
 		{#if data.dailyTasks.length === 0}
