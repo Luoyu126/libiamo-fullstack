@@ -42,7 +42,6 @@
 	--color-accent-blue: #8fa3b1;
 	--color-accent-sage: #8faf8f;
 	--color-accent-rose: #c9a4a4;
-	--font-heading: "Playfair Display", Georgia, serif;
 }
 
 .dark {
@@ -80,6 +79,7 @@
 }
 
 @theme inline {
+	--font-heading: "Playfair Display", Georgia, serif;
 	--font-sans: "Inter Variable", sans-serif;
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
@@ -125,14 +125,17 @@
 	* {
 		@apply border-border outline-ring/50;
 	}
+
 	body {
 		@apply bg-background text-foreground;
 	}
+
 	h1,
 	h2,
 	h3 {
 		font-family: var(--font-heading);
 	}
+
 	html {
 		@apply font-sans;
 	}
@@ -198,9 +201,17 @@
 	}
 }
 
+/* View Transitions: smooth morph for the shared navbar */
+::view-transition-old(main-nav),
+::view-transition-new(main-nav) {
+	animation-duration: 250ms;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.15, 1);
+}
+
 @utility no-scrollbar {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+
 	&::-webkit-scrollbar {
 		display: none;
 	}
