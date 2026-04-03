@@ -1,4 +1,4 @@
-import type { auth } from '$lib/server/auth';
+import type { auth } from "$lib/server/auth";
 
 declare global {
 	namespace App {
@@ -8,5 +8,3 @@ declare global {
 		}
 	}
 }
-
-export {};

@@ -1,22 +1,18 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-	import * as Card from '$lib/components/ui/card';
+import { enhance } from "$app/forms";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import { Input } from "$lib/components/ui/input";
+import { Label } from "$lib/components/ui/label";
 
-	let { form, data } = $props();
+let { form, data } = $props();
 </script>
 
 <Card.Root>
-	<Card.Header>
-		<Card.Title class="text-xl">Sign In</Card.Title>
-	</Card.Header>
+	<Card.Header> <Card.Title class="text-xl">Sign In</Card.Title> </Card.Header>
 	<Card.Content>
 		{#if data.resetSuccess}
-			<p class="mb-4 rounded-md bg-green-50 p-3 text-sm text-green-700">
-				Password reset successfully. Please sign in.
-			</p>
+			<p class="mb-4 rounded-md bg-green-50 p-3 text-sm text-green-700">Password reset successfully. Please sign in.</p>
 		{/if}
 
 		{#if form?.message}
@@ -45,8 +41,6 @@
 	</Card.Content>
 	<Card.Footer class="flex flex-col gap-2 text-sm">
 		<a href="/forgot-password" class="text-muted-foreground hover:underline">Forgot password?</a>
-		<p class="text-muted-foreground">
-			Don't have an account? <a href="/sign-up" class="font-medium text-foreground hover:underline">Sign Up</a>
-		</p>
+		<p class="text-muted-foreground">Don't have an account? <a href="/sign-up" class="font-medium text-foreground hover:underline">Sign Up</a></p>
 	</Card.Footer>
 </Card.Root>

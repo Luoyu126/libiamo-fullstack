@@ -1,14 +1,12 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
 
-	let { data } = $props();
+let { data } = $props();
 </script>
 
 <Card.Root>
-	<Card.Header>
-		<Card.Title class="text-xl">Email Verification</Card.Title>
-	</Card.Header>
+	<Card.Header> <Card.Title class="text-xl">Email Verification</Card.Title> </Card.Header>
 	<Card.Content>
 		{#if data.pending}
 			<div class="space-y-3 text-center">
@@ -28,9 +26,7 @@
 				<Button href="/sign-in" variant="default">Sign In</Button>
 			</div>
 		{:else}
-			<p class="text-center text-muted-foreground">
-				<a href="/sign-in" class="font-medium text-foreground hover:underline">Sign in</a> to continue.
-			</p>
+			<p class="text-center text-muted-foreground"><a href="/sign-in" class="font-medium text-foreground hover:underline">Sign in</a> to continue.</p>
 		{/if}
 	</Card.Content>
 </Card.Root>

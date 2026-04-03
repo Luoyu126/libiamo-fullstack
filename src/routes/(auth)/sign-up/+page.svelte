@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-	import * as Card from '$lib/components/ui/card';
+import { enhance } from "$app/forms";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import { Input } from "$lib/components/ui/input";
+import { Label } from "$lib/components/ui/label";
 
-	let { form } = $props();
+let { form } = $props();
 </script>
 
 <Card.Root>
-	<Card.Header>
-		<Card.Title class="text-xl">Sign Up</Card.Title>
-	</Card.Header>
+	<Card.Header> <Card.Title class="text-xl">Sign Up</Card.Title> </Card.Header>
 	<Card.Content>
 		{#if form?.message}
 			<p class="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-700">{form.message}</p>
@@ -65,8 +63,6 @@
 		</form>
 	</Card.Content>
 	<Card.Footer class="text-sm">
-		<p class="text-muted-foreground">
-			Already have an account? <a href="/sign-in" class="font-medium text-foreground hover:underline">Sign In</a>
-		</p>
+		<p class="text-muted-foreground">Already have an account? <a href="/sign-in" class="font-medium text-foreground hover:underline">Sign In</a></p>
 	</Card.Footer>
 </Card.Root>

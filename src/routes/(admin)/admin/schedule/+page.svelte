@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-	import { Badge } from '$lib/components/ui/badge';
-	import * as Card from '$lib/components/ui/card';
-	import * as Table from '$lib/components/ui/table';
+import { enhance } from "$app/forms";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import { Input } from "$lib/components/ui/input";
+import { Label } from "$lib/components/ui/label";
+import * as Table from "$lib/components/ui/table";
 
-	let { form, data } = $props();
+let { form, data } = $props();
 </script>
 
 <div class="space-y-8">
@@ -28,16 +28,12 @@
 				<option value="ja" selected={data.filters.language === 'ja'}>Japanese</option>
 			</select>
 		</div>
-		<div class="flex items-end">
-			<Button type="submit" variant="secondary">View</Button>
-		</div>
+		<div class="flex items-end"><Button type="submit" variant="secondary">View</Button></div>
 	</form>
 
 	<!-- Scheduled Tasks -->
 	<div>
-		<h2 class="mb-3 text-lg font-semibold">
-			Tasks for {data.filters.date} ({data.filters.language.toUpperCase()})
-		</h2>
+		<h2 class="mb-3 text-lg font-semibold">Tasks for {data.filters.date} ({data.filters.language.toUpperCase()})</h2>
 		{#if data.scheduledTasks.length > 0}
 			<Table.Root>
 				<Table.Header>
@@ -56,9 +52,7 @@
 							<Table.Cell>{t.titleResolved}</Table.Cell>
 							<Table.Cell>{t.templateType}</Table.Cell>
 							<Table.Cell>{t.templateDuration}</Table.Cell>
-							<Table.Cell>
-								<Badge variant={t.origin === 'auto' ? 'secondary' : 'default'}>{t.origin}</Badge>
-							</Table.Cell>
+							<Table.Cell> <Badge variant={t.origin === 'auto' ? 'secondary' : 'default'}>{t.origin}</Badge> </Table.Cell>
 						</Table.Row>
 					{/each}
 				</Table.Body>
@@ -70,9 +64,7 @@
 
 	<!-- Schedule Form -->
 	<Card.Root>
-		<Card.Header>
-			<Card.Title>Schedule Task Manually</Card.Title>
-		</Card.Header>
+		<Card.Header> <Card.Title>Schedule Task Manually</Card.Title> </Card.Header>
 		<Card.Content>
 			{#if form?.success}
 				<p class="mb-4 rounded-md bg-green-50 p-3 text-sm text-green-700">Task scheduled.</p>
@@ -89,12 +81,16 @@
 							<option value={tpl.id}>{tpl.id} — {tpl.titleBase} ({tpl.language.toUpperCase()})</option>
 						{/each}
 					</select>
-					{#if form?.errors?.templateId}<p class="text-sm text-red-600">{form.errors.templateId[0]}</p>{/if}
+					{#if form?.errors?.templateId}
+						<p class="text-sm text-red-600">{form.errors.templateId[0]}</p>
+					{/if}
 				</div>
 				<div class="space-y-1">
 					<Label for="scheduleDate">Date</Label>
 					<Input id="scheduleDate" name="date" type="date" value={data.filters.date} required />
-					{#if form?.errors?.date}<p class="text-sm text-red-600">{form.errors.date[0]}</p>{/if}
+					{#if form?.errors?.date}
+						<p class="text-sm text-red-600">{form.errors.date[0]}</p>
+					{/if}
 				</div>
 				<Button type="submit">Schedule</Button>
 			</form>

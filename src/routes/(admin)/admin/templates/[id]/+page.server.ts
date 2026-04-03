@@ -1,16 +1,16 @@
-import { fail, redirect, error } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
-import { templateSchema } from '$lib/schemas';
-import { db } from '$lib/server/db';
-import { template } from '$lib/server/db/schema';
-import { eq } from 'drizzle-orm';
+import { error, fail, redirect } from "@sveltejs/kit";
+import { eq } from "drizzle-orm";
+import { templateSchema } from "$lib/schemas";
+import { db } from "$lib/server/db";
+import { template } from "$lib/server/db/schema";
+import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async (event) => {
 	const id = Number(event.params.id);
-	if (Number.isNaN(id)) return error(404, 'Template not found');
+	if (Number.isNaN(id)) return error(404, "Template not found");
 
 	const [tpl] = await db.select().from(template).where(eq(template.id, id)).limit(1);
-	if (!tpl) return error(404, 'Template not found');
+	if (!tpl) return error(404, "Template not found");
 
 	return { template: tpl };
 };
@@ -34,6 +34,6 @@ export const actions: Actions = {
 	delete: async (event) => {
 		const id = Number(event.params.id);
 		await db.update(template).set({ isActive: false }).where(eq(template.id, id));
-		return redirect(302, '/admin/templates');
-	}
+		return redirect(302, "/admin/templates");
+	},
 };

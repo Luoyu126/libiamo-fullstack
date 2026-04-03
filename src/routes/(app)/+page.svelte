@@ -1,28 +1,28 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Button } from '$lib/components/ui/button';
-	import { t, type LangCode } from '$lib/i18n';
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import { type LangCode, t } from "$lib/i18n";
 
-	let { data } = $props();
-	let lang = $derived(data.language as LangCode);
+let { data } = $props();
+let lang = $derived(data.language as LangCode);
 
-	let expandedId = $state<number | null>(null);
+let expandedId = $state<number | null>(null);
 
-	function toggleCard(id: number) {
-		expandedId = expandedId === id ? null : id;
-	}
+function toggleCard(id: number) {
+	expandedId = expandedId === id ? null : id;
+}
 
-	function difficultyDots(level: number) {
-		return Array.from({ length: 3 }, (_, i) => i < level);
-	}
+function difficultyDots(level: number) {
+	return Array.from({ length: 3 }, (_, i) => i < level);
+}
 
-	const typeColors: Record<string, string> = {
-		chat: 'bg-[var(--color-accent-blue)] text-white',
-		oneshot: 'bg-[var(--color-accent-sage)] text-white',
-		slow: 'bg-[var(--color-accent-rose)] text-white',
-		translate: 'bg-[var(--color-accent-yellow)] text-white'
-	};
+const typeColors: Record<string, string> = {
+	chat: "bg-[var(--color-accent-blue)] text-white",
+	oneshot: "bg-[var(--color-accent-sage)] text-white",
+	slow: "bg-[var(--color-accent-rose)] text-white",
+	translate: "bg-[var(--color-accent-yellow)] text-white",
+};
 </script>
 
 <div class="space-y-10">
@@ -61,9 +61,7 @@
 									<p class="text-sm text-muted-foreground">{task.descriptionResolved}</p>
 								{/if}
 							</Card.Content>
-							<Card.Footer>
-								<Button href="/task/{task.id}" variant="default" size="sm">{t(lang, 'hall.enter')}</Button>
-							</Card.Footer>
+							<Card.Footer> <Button href="/task/{task.id}" variant="default" size="sm">{t(lang, 'hall.enter')}</Button> </Card.Footer>
 						</div>
 					</Card.Root>
 				{/each}
@@ -105,9 +103,7 @@
 									<p class="text-sm text-muted-foreground">{task.descriptionResolved}</p>
 								{/if}
 							</Card.Content>
-							<Card.Footer>
-								<Button href="/task/{task.id}" variant="default" size="sm">{t(lang, 'hall.enter')}</Button>
-							</Card.Footer>
+							<Card.Footer> <Button href="/task/{task.id}" variant="default" size="sm">{t(lang, 'hall.enter')}</Button> </Card.Footer>
 						</div>
 					</Card.Root>
 				{/each}

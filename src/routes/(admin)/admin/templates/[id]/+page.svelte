@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import TemplateForm from '$lib/components/TemplateForm.svelte';
-	import { Button } from '$lib/components/ui/button';
+import { enhance } from "$app/forms";
+import TemplateForm from "$lib/components/TemplateForm.svelte";
+import { Button } from "$lib/components/ui/button";
 
-	let { form, data } = $props();
+let { form, data } = $props();
 </script>
 
 <div class="space-y-6">
 	<div class="flex items-center justify-between">
 		<h1 class="text-2xl font-bold">Edit Template #{data.template.id}</h1>
-		<form method="POST" action="?/delete" use:enhance>
-			<Button type="submit" variant="destructive" size="sm">Deactivate</Button>
-		</form>
+		<form method="POST" action="?/delete" use:enhance><Button type="submit" variant="destructive" size="sm">Deactivate</Button></form>
 	</div>
 
 	{#if form?.saved}

@@ -1,15 +1,16 @@
-import { fail, redirect } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
-import { auth } from '$lib/server/auth';
-import { switchLanguageSchema } from '$lib/schemas';
-import { ensureTasksForDate, getMondayOfWeek, toDateString } from '$lib/server/tasks';
-import { db } from '$lib/server/db';
-import { task, template, userLearningProfile } from '$lib/server/db/schema';
-import { eq, and } from 'drizzle-orm';
-import type { LangCode } from '$lib/i18n';
+import { fail, redirect } from "@sveltejs/kit";
+import { and, eq } from "drizzle-orm";
+import type { LangCode } from "$lib/i18n";
+import { switchLanguageSchema } from "$lib/schemas";
+import { auth } from "$lib/server/auth";
+import { db } from "$lib/server/db";
+import { task, template, userLearningProfile } from "$lib/server/db/schema";
+import { ensureTasksForDate, getMondayOfWeek, toDateString } from "$lib/server/tasks";
+import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async (event) => {
-	const user = event.locals.user!;
+	const user = event.locals.user;
+	if (!user) return redirect(302, "/sign-in");
 	const language = user.activeLanguage as LangCode;
 	const today = new Date();
 
@@ -28,7 +29,7 @@ export const load: PageServerLoad = async (event) => {
 			templateType: template.type,
 			templateUi: template.ui,
 			templateDifficulty: template.difficulty,
-			templateDuration: template.duration
+			templateDuration: template.duration,
 		})
 		.from(task)
 		.innerJoin(template, eq(task.templateId, template.id))
@@ -44,7 +45,7 @@ export const load: PageServerLoad = async (event) => {
 			templateType: template.type,
 			templateUi: template.ui,
 			templateDifficulty: template.difficulty,
-			templateDuration: template.duration
+			templateDuration: template.duration,
 		})
 		.from(task)
 		.innerJoin(template, eq(task.templateId, template.id))
@@ -56,27 +57,30 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	switchLanguage: async (event) => {
 		const formData = await event.request.formData();
-		const raw = { language: formData.get('language')?.toString() ?? '' };
+		const raw = { language: formData.get("language")?.toString() ?? "" };
 
 		const result = switchLanguageSchema.safeParse(raw);
 		if (!result.success) {
-			return fail(400, { message: 'Invalid language' });
+			return fail(400, { message: "Invalid language" });
 		}
 
 		await auth.api.updateUser({
 			body: { activeLanguage: result.data.language },
-			headers: event.request.headers
+			headers: event.request.headers,
 		});
+
+		const userId = event.locals.user?.id;
+		if (!userId) return fail(401);
 
 		// Ensure learning profile exists for the new language
 		await db
 			.insert(userLearningProfile)
 			.values({
-				userId: event.locals.user!.id,
-				language: result.data.language
+				userId,
+				language: result.data.language,
 			})
 			.onConflictDoNothing();
 
-		return redirect(302, '/');
-	}
+		return redirect(302, "/");
+	},
 };

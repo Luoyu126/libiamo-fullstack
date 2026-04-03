@@ -1,15 +1,16 @@
-import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import { db } from '$lib/server/db';
-import { task, template } from '$lib/server/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { error, redirect } from "@sveltejs/kit";
+import { and, eq } from "drizzle-orm";
+import { db } from "$lib/server/db";
+import { task, template } from "$lib/server/db/schema";
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async (event) => {
-	const user = event.locals.user!;
+	const user = event.locals.user;
+	if (!user) return redirect(302, "/sign-in");
 	const taskId = Number(event.params.id);
 
 	if (Number.isNaN(taskId)) {
-		return error(404, 'Task not found');
+		return error(404, "Task not found");
 	}
 
 	const [result] = await db
@@ -29,15 +30,15 @@ export const load: PageServerLoad = async (event) => {
 			estimatedWords: template.estimatedWords,
 			maxTurns: template.maxTurns,
 			pointReward: template.pointReward,
-			gemReward: template.gemReward
+			gemReward: template.gemReward,
 		})
 		.from(task)
 		.innerJoin(template, eq(task.templateId, template.id))
-		.where(and(eq(task.id, taskId), eq(task.language, user.activeLanguage as 'en' | 'es' | 'fr' | 'ja')))
+		.where(and(eq(task.id, taskId), eq(task.language, user.activeLanguage as "en" | "es" | "fr" | "ja")))
 		.limit(1);
 
 	if (!result) {
-		return error(404, 'Task not found');
+		return error(404, "Task not found");
 	}
 
 	return { task: result };

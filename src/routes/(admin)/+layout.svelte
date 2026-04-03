@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { children, data } = $props();
+let { children, data } = $props();
 </script>
 
 <div class="min-h-screen">
@@ -17,7 +17,5 @@
 		</div>
 	</nav>
 
-	<main class="mx-auto max-w-6xl px-4 py-8">
-		{@render children()}
-	</main>
+	<main class="mx-auto max-w-6xl px-4 py-8">{@render children()}</main>
 </div>

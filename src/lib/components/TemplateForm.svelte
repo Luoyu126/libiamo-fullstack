@@ -1,45 +1,50 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { Label } from '$lib/components/ui/label';
-	import { Textarea } from '$lib/components/ui/textarea';
+import { enhance } from "$app/forms";
+import { Button } from "$lib/components/ui/button";
+import { Input } from "$lib/components/ui/input";
+import { Label } from "$lib/components/ui/label";
+import { Textarea } from "$lib/components/ui/textarea";
 
-	type TemplateData = {
-		language?: string;
-		type?: string;
-		ui?: string;
-		duration?: string;
-		difficulty?: number;
-		maxTurns?: number | null;
-		estimatedWords?: number | null;
-		pointReward?: number;
-		gemReward?: number;
-		isActive?: boolean;
-		titleBase?: string;
-		descriptionBase?: string | null;
-		agentPromptBase?: string | null;
-		backgroundHtml?: string | null;
-		objectivesBase?: unknown;
-		agentPersonaPool?: unknown;
-		candidates?: unknown;
-	};
+type TemplateData = {
+	language?: string;
+	type?: string;
+	ui?: string;
+	duration?: string;
+	difficulty?: number;
+	maxTurns?: number | null;
+	estimatedWords?: number | null;
+	pointReward?: number;
+	gemReward?: number;
+	isActive?: boolean;
+	titleBase?: string;
+	descriptionBase?: string | null;
+	agentPromptBase?: string | null;
+	backgroundHtml?: string | null;
+	objectivesBase?: unknown;
+	agentPersonaPool?: unknown;
+	candidates?: unknown;
+};
 
-	let {
-		template = {} as TemplateData,
-		form = null as Record<string, unknown> | null,
-		action = '',
-		submitLabel = 'Save'
-	} = $props();
+interface Props {
+	template?: TemplateData;
+	form?: {
+		message?: string;
+		errors?: Record<string, string[]>;
+	} | null;
+	action?: string;
+	submitLabel?: string;
+}
 
-	function jsonStr(val: unknown): string {
-		if (!val) return '';
-		try {
-			return JSON.stringify(val, null, 2);
-		} catch {
-			return '';
-		}
+let { template = {} as TemplateData, form = null, action = "", submitLabel = "Save" }: Props = $props();
+
+function jsonStr(val: unknown): string {
+	if (!val) return "";
+	try {
+		return JSON.stringify(val, null, 2);
+	} catch {
+		return "";
 	}
+}
 </script>
 
 <form method="POST" {action} use:enhance class="space-y-8">
@@ -57,7 +62,9 @@
 				<option value="fr" selected={template.language === 'fr'}>French</option>
 				<option value="ja" selected={template.language === 'ja'}>Japanese</option>
 			</select>
-			{#if form?.errors?.language}<p class="text-sm text-red-600">{form.errors.language[0]}</p>{/if}
+			{#if form?.errors?.language}
+				<p class="text-sm text-red-600">{form.errors.language[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -68,7 +75,9 @@
 				<option value="slow" selected={template.type === 'slow'}>Slow</option>
 				<option value="translate" selected={template.type === 'translate'}>Translate</option>
 			</select>
-			{#if form?.errors?.type}<p class="text-sm text-red-600">{form.errors.type[0]}</p>{/if}
+			{#if form?.errors?.type}
+				<p class="text-sm text-red-600">{form.errors.type[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -81,7 +90,9 @@
 				<option value="ao3" selected={template.ui === 'ao3'}>AO3</option>
 				<option value="translator" selected={template.ui === 'translator'}>Translator</option>
 			</select>
-			{#if form?.errors?.ui}<p class="text-sm text-red-600">{form.errors.ui[0]}</p>{/if}
+			{#if form?.errors?.ui}
+				<p class="text-sm text-red-600">{form.errors.ui[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -90,13 +101,17 @@
 				<option value="weekly" selected={template.duration === 'weekly'}>Weekly</option>
 				<option value="daily" selected={template.duration === 'daily'}>Daily</option>
 			</select>
-			{#if form?.errors?.duration}<p class="text-sm text-red-600">{form.errors.duration[0]}</p>{/if}
+			{#if form?.errors?.duration}
+				<p class="text-sm text-red-600">{form.errors.duration[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
 			<Label for="difficulty">Difficulty (1-3)</Label>
 			<Input id="difficulty" name="difficulty" type="number" min="1" max="3" value={template.difficulty ?? 1} required />
-			{#if form?.errors?.difficulty}<p class="text-sm text-red-600">{form.errors.difficulty[0]}</p>{/if}
+			{#if form?.errors?.difficulty}
+				<p class="text-sm text-red-600">{form.errors.difficulty[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -112,17 +127,21 @@
 		<div class="space-y-2">
 			<Label for="pointReward">Point Reward</Label>
 			<Input id="pointReward" name="pointReward" type="number" min="0" value={template.pointReward ?? 3} required />
-			{#if form?.errors?.pointReward}<p class="text-sm text-red-600">{form.errors.pointReward[0]}</p>{/if}
+			{#if form?.errors?.pointReward}
+				<p class="text-sm text-red-600">{form.errors.pointReward[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
 			<Label for="gemReward">Gem Reward</Label>
 			<Input id="gemReward" name="gemReward" type="number" min="0" value={template.gemReward ?? 30} required />
-			{#if form?.errors?.gemReward}<p class="text-sm text-red-600">{form.errors.gemReward[0]}</p>{/if}
+			{#if form?.errors?.gemReward}
+				<p class="text-sm text-red-600">{form.errors.gemReward[0]}</p>
+			{/if}
 		</div>
 
 		<div class="flex items-center gap-2 pt-6">
-			<input id="isActive" name="isActive" type="checkbox" checked={template.isActive ?? true} class="rounded border-input" />
+			<input id="isActive" name="isActive" type="checkbox" checked={template.isActive ?? true} class="rounded border-input">
 			<Label for="isActive">Active</Label>
 		</div>
 	</div>
@@ -132,7 +151,9 @@
 		<div class="space-y-2">
 			<Label for="titleBase">Title (supports &#123;&#123;slot&#125;&#125; placeholders)</Label>
 			<Input id="titleBase" name="titleBase" value={template.titleBase ?? ''} required />
-			{#if form?.errors?.titleBase}<p class="text-sm text-red-600">{form.errors.titleBase[0]}</p>{/if}
+			{#if form?.errors?.titleBase}
+				<p class="text-sm text-red-600">{form.errors.titleBase[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -159,7 +180,9 @@
 				value={jsonStr(template.objectivesBase) || '[{"order": 1, "text": "..."}]'}
 				placeholder={'[{"order": 1, "text": "Greet the user"}]'}
 			/>
-			{#if form?.errors?.objectivesBase}<p class="text-sm text-red-600">{form.errors.objectivesBase[0]}</p>{/if}
+			{#if form?.errors?.objectivesBase}
+				<p class="text-sm text-red-600">{form.errors.objectivesBase[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -171,7 +194,9 @@
 				value={jsonStr(template.agentPersonaPool) || '[{"name": "...", "personality": "..."}]'}
 				placeholder={'[{"name": "Maria", "age": 25, "personality": "friendly"}]'}
 			/>
-			{#if form?.errors?.agentPersonaPool}<p class="text-sm text-red-600">{form.errors.agentPersonaPool[0]}</p>{/if}
+			{#if form?.errors?.agentPersonaPool}
+				<p class="text-sm text-red-600">{form.errors.agentPersonaPool[0]}</p>
+			{/if}
 		</div>
 
 		<div class="space-y-2">
@@ -183,7 +208,9 @@
 				value={jsonStr(template.candidates) || '[{"slots": {"topic": "..."}, "context": {}}]'}
 				placeholder={'[{"slots": {"topic": "food"}, "context": {"subreddit": "r/askspain"}}]'}
 			/>
-			{#if form?.errors?.candidates}<p class="text-sm text-red-600">{form.errors.candidates[0]}</p>{/if}
+			{#if form?.errors?.candidates}
+				<p class="text-sm text-red-600">{form.errors.candidates[0]}</p>
+			{/if}
 		</div>
 	</div>
 

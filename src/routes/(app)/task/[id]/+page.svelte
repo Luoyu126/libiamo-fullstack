@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { Badge } from '$lib/components/ui/badge';
-	import { Button } from '$lib/components/ui/button';
-	import { Separator } from '$lib/components/ui/separator';
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Separator } from "$lib/components/ui/separator";
 
-	let { data } = $props();
-	let task = $derived(data.task);
+let { data } = $props();
+let task = $derived(data.task);
 
-	const objectives = $derived(
-		(task.objectivesResolved as { order: number; text: string }[] | null) ?? []
-	);
+const objectives = $derived((task.objectivesResolved as { order: number; text: string }[] | null) ?? []);
 
-	function difficultyDots(level: number) {
-		return Array.from({ length: 3 }, (_, i) => i < level);
-	}
+function difficultyDots(level: number) {
+	return Array.from({ length: 3 }, (_, i) => i < level);
+}
 </script>
 
 <div class="mx-auto max-w-3xl space-y-6">
@@ -25,9 +23,7 @@
 			<Badge variant="outline">{task.templateUi}</Badge>
 			<span class="flex gap-0.5">
 				{#each difficultyDots(task.templateDifficulty) as filled}
-					<span
-						class="inline-block h-2.5 w-2.5 rounded-full {filled ? 'bg-foreground' : 'bg-border'}"
-					></span>
+					<span class="inline-block h-2.5 w-2.5 rounded-full {filled ? 'bg-foreground' : 'bg-border'}"></span>
 				{/each}
 			</span>
 			{#if task.estimatedWords}
@@ -58,9 +54,7 @@
 		<Separator />
 		<div>
 			<h2 class="mb-3 text-lg font-semibold">Background Material</h2>
-			<div class="prose prose-sm max-w-none">
-				{@html task.backgroundHtml}
-			</div>
+			<div class="prose prose-sm max-w-none">{@html task.backgroundHtml}</div>
 		</div>
 	{/if}
 
