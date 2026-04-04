@@ -47,12 +47,12 @@ Additional business fields:
   ui                uiVariant     not null
   duration          taskDuration  not null
 
-  titleBase         text          -- supports {{slot}} placeholders
-  descriptionBase   text          -- HTML with placeholders
+  titleBase         text          -- all 'base' supports {{slot}} placeholders
+  descriptionBase   text          -- describe the full scenario
   objectivesBase    jsonb         -- [{order, text}]
   agentPromptBase   text          -- system prompt template
   agentPersonaPool  jsonb         -- [{name, age, personality, background}]
-  backgroundHtml    text          -- learning material, no slots
+  bgKnowledgeHtml    text          -- learning material, no slots
   candidates        jsonb         -- [{slots: {}, context: {}}]
 
   maxTurns          integer       -- 0 for oneshot/translate

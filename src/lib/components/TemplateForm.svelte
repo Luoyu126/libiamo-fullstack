@@ -19,7 +19,7 @@ type TemplateData = {
 	titleBase?: string;
 	descriptionBase?: string | null;
 	agentPromptBase?: string | null;
-	backgroundHtml?: string | null;
+	bgKnowledgeHtml?: string | null;
 	objectivesBase?: unknown;
 	agentPersonaPool?: unknown;
 	candidates?: unknown;
@@ -167,8 +167,8 @@ function jsonStr(val: unknown): string {
 		</div>
 
 		<div class="space-y-2">
-			<Label for="backgroundHtml">Background HTML</Label>
-			<Textarea id="backgroundHtml" name="backgroundHtml" rows={4} value={template.backgroundHtml ?? ''} />
+			<Label for="bgKnowledgeHtml">Background HTML</Label>
+			<Textarea id="bgKnowledgeHtml" name="bgKnowledgeHtml" rows={4} value={template.bgKnowledgeHtml ?? ''} />
 		</div>
 
 		<div class="space-y-2">

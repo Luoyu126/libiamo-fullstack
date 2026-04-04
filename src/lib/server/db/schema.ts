@@ -37,7 +37,7 @@ export const template = pgTable(
 		objectivesBase: jsonb("objectives_base"),
 		agentPromptBase: text("agent_prompt_base"),
 		agentPersonaPool: jsonb("agent_persona_pool"),
-		backgroundHtml: text("background_html"),
+		bgKnowledgeHtml: text("bg_knowledge_html"),
 		candidates: jsonb("candidates"),
 
 		maxTurns: integer("max_turns"),

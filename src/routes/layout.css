@@ -79,7 +79,7 @@
 }
 
 @theme inline {
-	--font-heading: "Playfair Display", Georgia, serif;
+	--font-serif: "Playfair Display", Georgia, serif;
 	--font-sans: "Inter Variable", sans-serif;
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
@@ -133,7 +133,7 @@
 	h1,
 	h2,
 	h3 {
-		font-family: var(--font-heading);
+		font-family: var(--font-serif);
 	}
 
 	html {

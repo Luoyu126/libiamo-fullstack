@@ -68,7 +68,7 @@ export const templateSchema = z.object({
 	titleBase: z.string().min(1, "Title is required"),
 	descriptionBase: z.string().optional(),
 	agentPromptBase: z.string().optional(),
-	backgroundHtml: z.string().optional(),
+	bgKnowledgeHtml: z.string().optional(),
 	objectivesBase: jsonField(z.array(z.object({ order: z.number(), text: z.string() }))),
 	agentPersonaPool: jsonField(
 		z.array(
