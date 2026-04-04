@@ -1,10 +1,89 @@
 <script lang="ts">
+import { tick } from "svelte";
+import { page } from "$app/state";
 import Navbar from "$lib/components/Navbar.svelte";
+import { clearTaskEnterTransition, markTaskEnterAnimating, taskEnterTransition } from "$lib/task-transition";
 
 let { children, data } = $props();
+let overlayStyle = $state("");
+let overlayOpacity = $state(0);
+let overlayVisible = $state(false);
+let clearTimer: ReturnType<typeof setTimeout> | undefined = $state();
+let fadeTimer: ReturnType<typeof setTimeout> | undefined = $state();
+
+function rectStyle(top: number, left: number, width: number, height: number, radius: number) {
+	return `top:${top}px;left:${left}px;width:${width}px;height:${height}px;border-radius:${radius}px;`;
+}
+
+function getNavBottom() {
+	const nav = document.querySelector("[data-app-nav]") as HTMLElement | null;
+	return nav?.getBoundingClientRect().bottom ?? 0;
+}
+
+function clearOverlayTimers() {
+	if (fadeTimer) clearTimeout(fadeTimer);
+	if (clearTimer) clearTimeout(clearTimer);
+}
+
+async function runTaskEnterOverlay() {
+	const transition = $taskEnterTransition;
+	if (!transition) return;
+
+	clearOverlayTimers();
+	markTaskEnterAnimating();
+	overlayVisible = true;
+	overlayOpacity = 1;
+	overlayStyle = rectStyle(
+		transition.sourceRect.top,
+		transition.sourceRect.left,
+		transition.sourceRect.width,
+		transition.sourceRect.height,
+		transition.sourceRadius,
+	);
+
+	await tick();
+
+	requestAnimationFrame(() => {
+		const navBottom = getNavBottom();
+		overlayStyle = rectStyle(navBottom, 0, window.innerWidth, Math.max(window.innerHeight - navBottom, 0), 0);
+	});
+
+	fadeTimer = setTimeout(() => {
+		overlayOpacity = 0;
+	}, 420);
+
+	clearTimer = setTimeout(() => {
+		overlayVisible = false;
+		clearTaskEnterTransition();
+	}, 760);
+}
+
+$effect(() => {
+	const transition = $taskEnterTransition;
+	const pathname = page.url.pathname;
+
+	if (!transition) return;
+	if (transition.stage !== "captured") return;
+	if (pathname !== `/task/${transition.taskId}`) return;
+
+	void runTaskEnterOverlay();
+});
+
+$effect(() => {
+	return () => {
+		clearOverlayTimers();
+	};
+});
 </script>
 
 <div class="min-h-screen">
 	<Navbar mode="app" user={data.user} avatarUrl={data.avatarUrl} />
-	<main class="mx-auto max-w-5xl px-4 py-8 pt-24">{@render children()}</main>
+	{#if overlayVisible}
+		<div
+			aria-hidden="true"
+			class="pointer-events-none fixed z-40 border border-border bg-card shadow-[0_32px_90px_rgba(24,24,27,0.12)] transition-[top,left,width,height,border-radius,opacity] duration-[720ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+			style="{overlayStyle}opacity:{overlayOpacity};"
+		></div>
+	{/if}
+	<main class="mx-auto max-w-5xl px-4 py-8 pt-24" style="view-transition-name: page-content">{@render children()}</main>
 </div>

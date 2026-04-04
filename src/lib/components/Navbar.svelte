@@ -133,6 +133,7 @@ function closeMobile() {
 
 <header
 	class="fixed top-0 w-full z-50 bg-stone-50/80 backdrop-blur-xl shadow-sm shadow-stone-900/5 border-b border-border"
+	data-app-nav
 	style="view-transition-name: main-nav"
 >
 	<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
