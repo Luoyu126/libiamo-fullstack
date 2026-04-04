@@ -49,6 +49,7 @@ Additional business fields:
 
   titleBase         text          -- all 'base' supports {{slot}} placeholders
   descriptionBase   text          -- describe the full scenario
+  shortObjectiveBase text         -- used for homepage card display
   objectivesBase    jsonb         -- [{order, text}]
   agentPromptBase   text          -- system prompt template
   agentPersonaPool  jsonb         -- [{name, age, personality, background}]
@@ -79,6 +80,7 @@ Additional business fields:
 
   titleResolved       text            not null
   descriptionResolved text
+  shortObjectiveResolved text
   objectivesResolved  jsonb           -- [{order, text}]
   agentPromptResolved text
   contextResolved     jsonb           -- platform-specific structure

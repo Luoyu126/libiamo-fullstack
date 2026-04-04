@@ -66,6 +66,7 @@ export const templateSchema = z.object({
 		.transform((v) => v === "on"),
 
 	titleBase: z.string().min(1, "Title is required"),
+	shortObjectiveBase: z.string().optional(),
 	descriptionBase: z.string().optional(),
 	agentPromptBase: z.string().optional(),
 	bgKnowledgeHtml: z.string().optional(),

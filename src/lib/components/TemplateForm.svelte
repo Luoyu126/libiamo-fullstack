@@ -17,6 +17,7 @@ type TemplateData = {
 	gemReward?: number;
 	isActive?: boolean;
 	titleBase?: string;
+	shortObjectiveBase?: string | null;
 	descriptionBase?: string | null;
 	agentPromptBase?: string | null;
 	bgKnowledgeHtml?: string | null;
@@ -154,6 +155,11 @@ function jsonStr(val: unknown): string {
 			{#if form?.errors?.titleBase}
 				<p class="text-sm text-red-600">{form.errors.titleBase[0]}</p>
 			{/if}
+		</div>
+
+		<div class="space-y-2">
+			<Label for="shortObjectiveBase">Short Objective (1-2 sentences, shown on card)</Label>
+			<Textarea id="shortObjectiveBase" name="shortObjectiveBase" rows={2} value={template.shortObjectiveBase ?? ''} />
 		</div>
 
 		<div class="space-y-2">

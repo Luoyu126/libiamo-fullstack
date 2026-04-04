@@ -53,6 +53,7 @@ All form data is validated with Zod schemas in `src/lib/schemas.ts` — auth sch
 
 - TailwindCSS v4 via `@tailwindcss/vite`. CSS entry at `src/routes/layout.css`.
 - shadcn-svelte (vega style, neutral base, lucide icons). Components in `src/lib/components/ui/`.
+- Non-UI components (`Navbar.svelte`, `WineGlassIcon.svelte`) live in `src/lib/components/` directly.
 - `cn()` in `src/lib/utils.ts` for class merging (clsx + tailwind-merge).
 - User avatars via Cravatar (MD5 of email) — computed in `(app)/+layout.server.ts`.
 
@@ -62,8 +63,8 @@ All `.svelte` files run in runes mode (`$state`, `$props`, `$derived`, etc.) —
 
 ## Important Notes for Claude
 
-- Tabs for indentation. Double quotes for JS/TS strings.
-- During plan: Ask user question if there are multiple good ways to implement the requested change. When introducing an external package is needed, analyze the pros and cons, ask the user and present alternatives.
+- Code style: Tabs for indentation, not spaces. Double quotes for JS/TS strings.
+- During plan: Keep in mind that you should often use the ask for clarify tool to ask user when there are multiple good ways to implement the requested change. When introducing an external package is needed, analyze the pros and cons, ask the user and present alternatives.
 - Use `frontend-design@claude-plugins-official` skill to help with visual design.
 - Before finish: Use `pnpm format` and `pnpm check` to ensure code quality before marking an edit session fully completed.
 - Use context7 mcp tool to look up documentation when getting stuck on problems. Only use it when it's very necessary.
