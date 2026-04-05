@@ -149,7 +149,7 @@ function closeMobile() {
 		</a>
 
 		<!-- Center: Desktop nav with sliding underline -->
-		<nav bind:this={navContainer} class="relative hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-body">
+		<nav bind:this={navContainer} class="relative hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-sans">
 			{#each navItems as item, i}
 				<a
 					bind:this={linkEls[i]}
